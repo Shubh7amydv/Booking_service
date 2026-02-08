@@ -1,16 +1,17 @@
-const { StatusCodes }=require('http-status-code');
+const { StatusCodes } = require('http-status-codes');
 
-class serviceError extends Error{
-    constructor (
+class ServiceError extends Error {
+    constructor(
         message,
-        explantion,
-        statusCodes=StatusCodes.INTERNAL_SERVER_ERROR
-    ){
-        this.name='ServiceError',
-        this.message=message,
-        this.explantion=explantion,
-        this.statusCodes=statusCodes
+        explanation,
+        statusCode = StatusCodes.INTERNAL_SERVER_ERROR
+    ) {
+        super(message); // ✅ REQUIRED
+
+        this.name = 'ServiceError';
+        this.explanation = explanation;
+        this.statusCode = statusCode;
     }
 }
 
-module.exports=serviceError;
+module.exports = ServiceError;

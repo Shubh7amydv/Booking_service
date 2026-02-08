@@ -34,4 +34,46 @@
   - Import Status Codes
   - Create a class name Booking repository 
   - Inside this class create a function named "create"
-       
+  
+# Create a modify_booking model using migration 
+  - code is - <npx sequelize migration:create --name modify_boookings_add_new_fields>
+  - We may have directly done this --- BUt migration file shows incremntal changes 
+  - Directly we can do through adding rows in Bopoking model -- then force db sync 
+  - Migration file will contain these two function broadly -----:
+       1.  asyn Up=>      used to Apply changes
+       1.  async down=>    Rollback changes 
+  - to run the above migration do --<npx sequelize db:migrate>
+
+
+
+## LECTURE - 12TH --------------------------------------
+
+- setup thr crud in flight repo to get the flight 
+- set up booking service 
+    - Install axios to get the data from different microservice 
+    - # AXIOS
+       1. Axios lets one service talk to another service over HTTP,
+       2. Axios is the bridge between microservices.
+       3. Syntax <axios.get(URL, CONFIG)>
+       4. These things ahppen internally 
+       5. 🧠 What happens internally (very important)
+            - Booking Service sends HTTP request
+            - Flight Service processes it
+            - Flight Service sends JSON response
+            - Axios:
+                 - Waits for response
+                 - Converts JSON automatically
+                 - Resolves promise
+
+
+
+
+
+
+
+
+
+
+
+
+
