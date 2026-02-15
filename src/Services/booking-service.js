@@ -11,6 +11,9 @@ class BookingService {
     }
     async createBooking(data){
        try {
+
+        console.log("SERVICE DATA:", data);
+
         
         const flightId= data.flightId
         const getflightRequestUrl=`${FLIGHT_SERVICE_PATH}/api/v1/flight/${flightId}`;
@@ -26,20 +29,24 @@ class BookingService {
                 'something went wrong in booking process',
                 'insufficients seats in the flight'
             )
-
-            // console.log("not sufficient seats avaiable");
-            // return 0;
         }
 
         const totalCost=priceOfFlight * data.noOfSeats;
         const bookingPayload={...data, totalCost};
         const booking= await this.bookingRepository.create(bookingPayload);
-       
+        const updateFlightRequestURL = `${FLIGHT_SERVICE_PATH}/api/v1/flight/${flightId}`;
+
+        console.log(updateFlightRequestURL);
+        console.log("flightData:", flightData);
+        console.log("booking.noOfSeats:", booking.noOfSeats);
+        console.log( "calculated seats:",flightData?.totalSeats - booking?.noOfSeats);
 
 
 
-
-
+        await axios.patch(updateFlightRequestURL, {totalSeats: flightData.totalSeats - booking.noOfSeats});
+        return booking;
+ 
+    
        } catch (error) {
             // throw new serviceError();
             console.log("something went wrong at service layer");
