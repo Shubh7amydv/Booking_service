@@ -30,12 +30,15 @@ class BookingRepository{
 
     async update (bookingId,data){
         try {
-            await Booking.update(data,{
-                where:{
-                    id:bookingId
-                }
-            });
-            return true;
+            const booking = await Booking.findByPk(bookingId);
+
+            if (data.status) {
+                booking.status = data.status;
+            }
+
+            await booking.save();
+            return booking;
+
         } catch (error) {
             console.log("something went wrong in updating the Booking ");
             throw error;
